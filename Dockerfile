@@ -9,7 +9,6 @@ WORKDIR /home/gradle/java-code
 RUN gradle build -i --no-daemon || return 0
 
 FROM gradle:8.1.1-jdk17 as runner
-RUN apk update && apk add gcompat # alpine uses musl while protoc binaries are compiled against glibc. gcompat fixes that.
 COPY --from=cache /home/gradle/cache_home /home/gradle/.gradle
 COPY . /usr/src/java-code/
 WORKDIR /usr/src/java-code
